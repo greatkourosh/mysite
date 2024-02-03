@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from mysite import views
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("http-test/", views.http_test, name="http-test"),
+    path("json-test/", views.json_test, name="json-test"),
 ]
