@@ -2,6 +2,8 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
+from mysite.settings import BASE_DIR, STATIC_ROOT, STATIC_URL
+
 
 def index(request):
     # return HttpResponse('<h1>This is Home<h1>')
