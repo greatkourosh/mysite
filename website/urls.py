@@ -1,5 +1,5 @@
 """
-URL configuration for mysite project.
+URL configuration for website app.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -14,15 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 
 from website import views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    # path("http-test/", views.http_test, name="http-test"),
-    # path("json-test/", views.json_test, name="json-test"),
-    path("", include("website.urls"), name="website"),
-    path("website/", include("website.urls"), name="website"),
+    path("", views.index, name="index"),
+    path("home", views.index, name="home"),
+    path("about", views.about, name="about"),
+    path("contact", views.contact, name="contact"),
+    path("http-test/", views.http_test, name="http-test"),
+    path("json-test/", views.json_test, name="json-test"),
 ]
