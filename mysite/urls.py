@@ -25,11 +25,7 @@ urlpatterns = [
     # path("http-test/", views.http_test, name="http-test"),
     # path("json-test/", views.json_test, name="json-test"),
     path("", include("website.urls"), name="website"),
-<<<<<<< HEAD
     # path("website/", include("website.urls"), name="website"),
-=======
-    path("website/", include("website.urls"), name="website"),
->>>>>>> 83e25168fa7ed5727889ed92d80d5386ddbfaa60
     path("blog/", include("blog.urls"), name="blog"),
 ]
 
