@@ -20,11 +20,6 @@ def contact(request):
     # return HttpResponse('<h1>This is contact<h1>')
     return render(request, 'website/contact.html')
 
-def http_test(request):
-    return HttpResponse('<h1>This is a test<h1>')
-
-def json_test(request):
-    return JsonResponse({
-        'h1':'This is a h1',
-        'h2':'This is a h2',
-        })
+def test_view(request):
+    context = {'name': 'Gamba Ozaka'}
+    return render(request, 'website/test_view.html', context)

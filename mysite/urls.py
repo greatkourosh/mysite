@@ -26,6 +26,7 @@ urlpatterns = [
     # path("json-test/", views.json_test, name="json-test"),
     path("", include("website.urls"), name="website"),
     path("website/", include("website.urls"), name="website"),
+    path("blog/", include("blog.urls"), name="blog"),
 ]
 
 # static ('static, 'base / static')
