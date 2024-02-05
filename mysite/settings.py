@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-*45z$-bd4n)weg6e6*i^2gn)2f66gqc_fxr_5&#^d=z9**cp@*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','192.168.1.0/24',]
 
 
 # Application definition
@@ -131,3 +131,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+INTERNAL_IPS = ['127.0.0.1','192.168.1.0/24',]

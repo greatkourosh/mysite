@@ -2529,8 +2529,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /*-------- Start Banner Area ------------*/
 .banner-area {
-  /* background: url(../img/hero-bg.jpg) center; */
-  background: url(../../img/hero-bg.jpg) center;
+  background: url(../img/hero-bg.jpg) center;
+  /* background: url(../../img/hero-bg.jpg) center; */
   /* background: url('{% static "static/img/hero-bg.jpg" %}') center; */
   background-size: cover;
 }
@@ -3057,8 +3057,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .about-banner {
-  /* background: url(../img/top-banner.jpg) center; */
-  background: url(../../img/top-banner.jpg) center;
+  background: url(../img/top-banner.jpg) center;
+  /* background: url(../../img/top-banner.jpg) center; */
   background-size: cover;
 }
 
@@ -3322,8 +3322,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* =================================== */
 /*============ Start Blog Home Styles  =============*/
 .blog-home-banner {
-  /* background: url(../img/blog/blog-home-banner.jpg) bottom; */
-  background: url(../../img/blog/blog-home-banner.jpg) bottom;
+  background: url(../img/blog/blog-home-banner.jpg) bottom;
+  /* background: url(../../img/blog/blog-home-banner.jpg) bottom; */
   background-size: cover;
   padding: 130px 0px;
 }

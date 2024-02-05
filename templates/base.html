@@ -21,15 +21,15 @@
     <!-- 
 			CSS
 			=============================================  -->
-    <link rel="stylesheet" href={% static 'css/linearicons.css' %}/>
-    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}/>
-    <link rel="stylesheet" href={% static 'css/bootstrap.css' %}/>
-    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}/>
-    <link rel="stylesheet" href={% static 'css/jquery-ui.css' %}/>
-    <link rel="stylesheet" href={% static 'css/nice-select.css' %}/>
-    <link rel="stylesheet" href={% static 'css/animate.min.css' %}/>
-    <link rel="stylesheet" href={% static 'css/owl.carousel.css' %}/>
-    <link rel="stylesheet" href={% static 'css/main.css' %}/>
+    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
   </head>
   <body>
     <header id="header">
@@ -75,6 +75,7 @@
               </li>
 
               <li class="menu-has-children">
+                {% if debug %}
                 <a href="">Blog</a>
                 <ul>
                   <li>
@@ -83,7 +84,13 @@
                   <li>
                     <a href="{% url 'blog:single' %}">Blog Single</a>
                   </li>
+                  <li>
+                    <a href="{% url 'blog:test_view' %}">Test View</a>
+                  </li>
                 </ul>
+                {% else %}
+                <a href="{% url 'blog:index' %}">Blog</a>
+                {% endif %}
               </li>
               <li class="menu-has-children">
                 <a href="">Pages</a>

@@ -2,79 +2,74 @@
 {% load static %}
 {% block content %}
   <!-- start banner Area -->
-  <section class="banner-area relative blog-home-banner" id="home">
+  <section class="about-banner relative">
     <div class="overlay overlay-bg"></div>
     <div class="container">
       <div class="row d-flex align-items-center justify-content-center">
-        <div class="about-content blog-header-content col-lg-12">
-          <h1 class="text-white">Dude You’re Getting a Telescope</h1>
-          <p class="text-white">There is a moment in the life of any aspiring astronomer that it is time to buy that first</p>
-          <a href="{% url 'blog:single' %}" class="primary-btn">View More</a>
+        <div class="about-content col-lg-12">
+          {% if title %}
+            <h1 class="text-white">{{ title }}</h1>
+          {% else %}
+            <h1 class="text-white">test_view</h1>
+          {% endif %}
+          <p class="text-white link-nav">
+            <a href="{% url 'website:index' %}">Home</a>
+            <span class="lnr lnr-arrow-right"></span>
+            <a href="{% url 'website:about' %}">About Us</a>
+          </p>
+          {% if name %}
+            <p class="text-white link-nav">
+              <a href="{% url 'website:index' %}">Name = {{ name }}</a>
+              <span class="lnr lnr-arrow-right"></span>
+              {% if family %}
+                <a href="{% url 'website:index' %}">Family = {{ family }}</a>
+                <span class="lnr lnr-arrow-right"></span>
+                {% if age %}
+                  <a href="{% url 'website:index' %}">Age = {{ age }}</a>
+                  <span class="lnr lnr-arrow-right"></span>
+                {% endif %}
+              {% endif %}
+            </p>
+          {% endif %}
+          {% if post %}
+          <p>
+            <a href="{% url 'website:index' %}">Post Title = {{ post.title }}</a>
+                  <span class="lnr lnr-arrow-right"></span>
+          </p>
+          {% endif %}
         </div>
       </div>
     </div>
   </section>
   <!-- End banner Area -->
-
-  <!-- Start top-category-widget Area -->
-  <section class="top-category-widget-area pt-90 pb-90">
+  <!-- Start about-info Area -->
+  <section class="about-info-area section-gap">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="single-cat-widget">
-            <div class="content relative">
-              <div class="overlay overlay-bg"></div>
-              <a href="#" target="_blank">
-                <div class="thumb">
-                  <img class="content-image img-fluid d-block mx-auto" src="{% static 'img/blog/cat-widget1.jpg' %}" alt="" />
-                </div>
-                <div class="content-details">
-                  <h4 class="content-title mx-auto text-uppercase">Social life</h4>
-                  <span></span>
-                  <p>Enjoy your social life together</p>
-                </div>
-              </a>
-            </div>
-          </div>
+      <div class="row align-items-center">
+        <div class="col-lg-6 info-left">
+          <img class="img-fluid" src="{% static 'img/about/info-img.jpg' %}" alt="" />
         </div>
-        <div class="col-lg-4">
-          <div class="single-cat-widget">
-            <div class="content relative">
-              <div class="overlay overlay-bg"></div>
-              <a href="#" target="_blank">
-                <div class="thumb">
-                  <img class="content-image img-fluid d-block mx-auto" src="{% static 'img/blog/cat-widget2.jpg' %}" alt="" />
-                </div>
-                <div class="content-details">
-                  <h4 class="content-title mx-auto text-uppercase">Politics</h4>
-                  <span></span>
-                  <p>Be a part of politics</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="single-cat-widget">
-            <div class="content relative">
-              <div class="overlay overlay-bg"></div>
-              <a href="#" target="_blank">
-                <div class="thumb">
-                  <img class="content-image img-fluid d-block mx-auto" src="{% static 'img/blog/cat-widget3.jpg' %}" alt="" />
-                </div>
-                <div class="content-details">
-                  <h4 class="content-title mx-auto text-uppercase">Food</h4>
-                  <span></span>
-                  <p>Let the food be finished</p>
-                </div>
-              </a>
-            </div>
-          </div>
+        <div class="col-lg-6 info-right">
+          {% if subtitle %}
+            <h6>{{ subtitle }}</h6>
+          {% else %}
+            <h6>test_view</h6>
+          {% endif %}
+          {% if title %}
+            <h1>{{ title }}</h1>
+          {% else %}
+            <h1>test_view</h1>
+          {% endif %}
+          {% if content %}
+            <p>{{ content }}</p>
+          {% else %}
+            <p>Here, I focus on a range of items and features that we use in life without giving them a second thought. such as Coca Cola. Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+          {% endif %}
         </div>
       </div>
     </div>
   </section>
-  <!-- End top-category-widget Area -->
+  <!-- End about-info Area -->
 
   <!-- Start post-content Area -->
   <section class="post-content-area">
@@ -85,23 +80,25 @@
             <div class="single-post row">
               <div class="col-lg-3 col-md-3 meta-details">
                 <ul class="tags">
-                  {% for category in post.category.all %}
                   <li>
-                    <a href="#">{{category.name}}</a>
+                    <a href="#">Food,</a>
                   </li>
-                  {% endfor %}
-                  {% comment %} {{ post.category.all|join:", "}} {% endcomment %}
+                  <li>
+                    <a href="#">Technology,</a>
+                  </li>
+                  <li>
+                    <a href="#">Politics,</a>
+                  </li>
+                  <li>
+                    <a href="#">Lifestyle</a>
+                  </li>
                 </ul>
                 <div class="user-details row">
                   <p class="user-name col-lg-12 col-md-12 col-6">
-                    {% if post.author.get_full_name %}
-                      <a href="#">{{ post.author.get_full_name }}</a> <span class="lnr lnr-user"></span>
-                    {% else %}
-                      <a href="#">{{ post.author.username }}</a> <span class="lnr lnr-user"></span>
-                    {% endif %}
+                    <a href="#">Mark wiens</a> <span class="lnr lnr-user"></span>
                   </p>
                   <p class="date col-lg-12 col-md-12 col-6">
-                    <a href="#">{{ post.published_at }}</a> <span class="lnr lnr-calendar-full"></span>
+                    <a href="#">{{ post.created_at }}</a> <span class="lnr lnr-calendar-full"></span>
                   </p>
                   <p class="view col-lg-12 col-md-12 col-6">
                     <a href="#">{{ post.counted_view }} Views</a> <span class="lnr lnr-eye"></span>
@@ -115,10 +112,17 @@
                 <div class="feature-img">
                   <img class="img-fluid" src="{% static 'img/blog/feature-img1.jpg' %}" alt="" />
                 </div>
-                <a class="posts-title" href="{% url 'blog:single_blog' post.id %}"><h3>{{ post.title }}</h3></a>
-                <p class="excert">{{ post.content }}</p>
-                {% comment %} <a href="blog-single.html" class="primary-btn">View More</a> {% endcomment %}
-                <a href="{% url 'blog:single_blog' post.id %}" class="primary-btn">View More</a>
+                {% if post.title %}
+                  <a class="posts-title" href="blog-single.html"><h3>{{ post.title }}</h3></a>
+                {% else %}
+                  <a class="posts-title" href="blog-single.html"><h3>Post.title PlaceHolder</h3></a>
+                {% endif %}
+                {% if post.content %}
+                  <p class="excert">{{ post.content }}</p>
+                {% else %}
+                  <p class="excert">Post.content PlaceHolder</p>
+                {% endif %}
+                <a href="blog-single.html" class="primary-btn">View More</a>
               </div>
             </div>
           {% endfor %}
@@ -221,16 +225,50 @@
               <a href="#"><img class="img-fluid" src="{% static 'img/blog/ads-banner.jpg' %}" alt="" /></a>
             </div>
             <div class="single-sidebar-widget post-category-widget">
-              <h4 class="category-title">Post Categories</h4>
+              <h4 class="category-title">Post Catgories</h4>
               <ul class="cat-list">
-                {% for category in categories %}
                 <li>
                   <a href="#" class="d-flex justify-content-between">
-                    <p>{{ category }}</p>
+                    <p>Technology</p>
                     <p>37</p>
                   </a>
                 </li>
-                {% endfor %}
+                <li>
+                  <a href="#" class="d-flex justify-content-between">
+                    <p>Lifestyle</p>
+                    <p>24</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="d-flex justify-content-between">
+                    <p>Fashion</p>
+                    <p>59</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="d-flex justify-content-between">
+                    <p>Art</p>
+                    <p>29</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="d-flex justify-content-between">
+                    <p>Food</p>
+                    <p>15</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="d-flex justify-content-between">
+                    <p>Architecture</p>
+                    <p>09</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="d-flex justify-content-between">
+                    <p>Adventure</p>
+                    <p>44</p>
+                  </a>
+                </li>
               </ul>
             </div>
             <div class="single-sidebar-widget newsletter-widget">
@@ -254,11 +292,42 @@
             <div class="single-sidebar-widget tag-cloud-widget">
               <h4 class="tagcloud-title">Tag Clouds</h4>
               <ul>
-                {% for tag in tags %}
                 <li>
-                  <a href="#">{{ tag }}</a>
+                  <a href="#">Technology</a>
                 </li>
-                {% endfor %}
+                <li>
+                  <a href="#">Fashion</a>
+                </li>
+                <li>
+                  <a href="#">Architecture</a>
+                </li>
+                <li>
+                  <a href="#">Fashion</a>
+                </li>
+                <li>
+                  <a href="#">Food</a>
+                </li>
+                <li>
+                  <a href="#">Technology</a>
+                </li>
+                <li>
+                  <a href="#">Lifestyle</a>
+                </li>
+                <li>
+                  <a href="#">Art</a>
+                </li>
+                <li>
+                  <a href="#">Adventure</a>
+                </li>
+                <li>
+                  <a href="#">Food</a>
+                </li>
+                <li>
+                  <a href="#">Lifestyle</a>
+                </li>
+                <li>
+                  <a href="#">Adventure</a>
+                </li>
               </ul>
             </div>
           </div>
