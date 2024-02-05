@@ -87,7 +87,7 @@
                 <ul class="tags">
                   {% for category in post.category.all %}
                   <li>
-                    <a href="#">{{category.name}}</a>
+                    <a href="#">{{category.name}}</a>{% if not forloop.last %}, {% endif %}
                   </li>
                   {% endfor %}
                   {% comment %} {{ post.category.all|join:", "}} {% endcomment %}
@@ -101,7 +101,7 @@
                     {% endif %}
                   </p>
                   <p class="date col-lg-12 col-md-12 col-6">
-                    <a href="#">{{ post.published_at }}</a> <span class="lnr lnr-calendar-full"></span>
+                    <a href="#">{{ post.published_at|date:"d M Y" }}</a> <span class="lnr lnr-calendar-full"></span>
                   </p>
                   <p class="view col-lg-12 col-md-12 col-6">
                     <a href="#">{{ post.counted_view }} Views</a> <span class="lnr lnr-eye"></span>
@@ -116,7 +116,8 @@
                   <img class="img-fluid" src="{% static 'img/blog/feature-img1.jpg' %}" alt="" />
                 </div>
                 <a class="posts-title" href="{% url 'blog:single_blog' post.id %}"><h3>{{ post.title }}</h3></a>
-                <p class="excert">{{ post.content }}</p>
+                {% comment %} <p class="excert">{{ post.snippets }}</p> {% endcomment %}
+                <p class="excert">{{ post.content|truncatechars:200 }}</p>
                 {% comment %} <a href="blog-single.html" class="primary-btn">View More</a> {% endcomment %}
                 <a href="{% url 'blog:single_blog' post.id %}" class="primary-btn">View More</a>
               </div>

@@ -45,7 +45,7 @@
               <ul class="tags">
                 {% for tag_item in post.tag.all %}
                 <li>
-                  <a href="#">{{ tag_item.name}}</a>
+                  <a href="#">{{ tag_item.name}}</a>{% if not forloop.last %}, {% endif %}
                 </li>
                 {% endfor %}
               </ul>
@@ -59,7 +59,7 @@
                     {% endif %}
                   </p>
                   <p class="date col-lg-12 col-md-12 col-6">
-                    <a href="#">{{ post.created_at }}</a> <span class="lnr lnr-calendar-full"></span>
+                    <a href="#">{{ post.created_at|date:"d M Y" }}</a> <span class="lnr lnr-calendar-full"></span>
                   </p>
                   <p class="view col-lg-12 col-md-12 col-6">
                     <a href="#">{{ post.counted_view }} Views</a> <span class="lnr lnr-eye"></span>
@@ -114,15 +114,16 @@
             <div class="col-lg-9 col-md-9">
               {% if post %}
                 <h1>{{ post.title }}</h1>
-                <p>{{ post.content }}</p>
+                {% comment %} <p>{{ post.content }}</p> {% endcomment %}
+                <p>{{ post.content|truncatechars:200 }}</p>
               {% else %}
                 {% if title %}
                   <h1>{{ title }}</h1>
                 {% else %}
                   <h3 class="mt-20 mb-20">Astronomy Binoculars A Great Alternative</h3>
                 {% endif %}
-                {% if content %}
-                  <p>{{ content }}</p>
+                {% if post.content %}
+                  <p class="excert">{{ post.content|truncatechars:200 }}</p>
                 {% else %}
                   <p class="excert">MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction.</p>
                   <p>Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed</p>
@@ -131,7 +132,11 @@
               {% endif %}
             </div>
             <div class="col-lg-12">
+              {% if post %}
+              <div class="quotes">{{ post.content}}</div>
+              {% else %}
               <div class="quotes">MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.</div>
+              {% endif %}
               <div class="row mt-30 mb-30">
                 <div class="col-6">
                   {% comment %} <img class="img-fluid" src="{% static 'img/blog/post-img1.jpg' %}" alt="" /> {% endcomment %}
@@ -141,10 +146,10 @@
                   {% comment %} <img class="img-fluid" src="{% static 'img/blog/post-img2.jpg' %}" alt="" /> {% endcomment %}
                   <img class="img-fluid" src="{{ post.image.url }}" alt="" />
                 </div>
-                <div class="col-lg-12 mt-30">
+                {% comment %} <div class="col-lg-12 mt-30">
                   <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.</p>
                   <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.</p>
-                </div>
+                </div> {% endcomment %}
               </div>
             </div>
           </div>
