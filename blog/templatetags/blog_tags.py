@@ -1,7 +1,7 @@
 import datetime
 from django import template
 
-from blog.models import Post
+from blog.models import Category, Post
 
 
 register = template.Library()
@@ -48,7 +48,21 @@ def snippetarg(value, arg=20):
 #     posts = Post.objects.filter(status=1).order_by('-published_at')
 #     return {'posts': posts}
 
+
 @register.inclusion_tag('widgets\popular-post-widget.html')
 def popularposts(count=3):
     posts = Post.objects.filter(status=True).order_by('-published_at')[:count]
     return {'posts': posts}
+
+
+@register.inclusion_tag('widgets\post-category-widget.html')
+def categories_count():
+    posts = Post.objects.filter(status=True)
+    categories = Category.objects.all()
+    categories_count = {}
+    for category_name in categories:
+        # category_count = Post.objects.filter(category=category_name.name).count()
+        # categories_count[category_name.name] = category_count
+        category_post = posts.filter(category=category_name).count()
+        categories_count[category_name.name] = category_post
+    return {'categories_count': categories_count}
