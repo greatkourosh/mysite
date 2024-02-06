@@ -17,5 +17,7 @@
     <p>title: {{ post.title }}</p>
     <p>snippet: {{ post.content|snippetarg:10 }} </p>
     {% endfor %}
+
+    {% popularposts 4 %}
 </body>
 </html>

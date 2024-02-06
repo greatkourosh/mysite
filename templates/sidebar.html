@@ -1,4 +1,5 @@
 {% load static %}
+{% load blog_tags %}
 <div class="col-lg-4 sidebar-widgets">
   <div class="widget-wrap">
     <div class="single-sidebar-widget search-widget">
@@ -8,7 +9,8 @@
       </form>
     </div>
     {% include 'widgets/author-widget.html' %}
-    {% include 'widgets/popular-post-widget.html' %}
+    {% comment %} {% include 'widgets/popular-post-widget.html' %} {% endcomment %}
+    {% popularposts 3 %}
     <div class="single-sidebar-widget ads-widget">
       <a href="#"><img class="img-fluid" src="{% static 'img/blog/ads-banner.jpg' %}" alt="" /></a>
     </div>

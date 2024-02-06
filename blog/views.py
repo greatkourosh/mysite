@@ -80,7 +80,6 @@ def single_blog(request, pid):
     # posts = Post.objects.all()
     categories = Category.objects.all()
     tags = Tag.objects.all()
-    posts = Post.objects.filter(status=True)
     # post = Post.objects.get(id=pid)
     post = get_object_or_404(Post, pk=pid, status=True)
     context = {
@@ -88,7 +87,6 @@ def single_blog(request, pid):
         'subtitle': 'Ozaka',
         'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
         'author': 'Asghar Farhadi',
-        'posts': posts,
         'pid': pid,
         'post': post,
         'tags': tags,

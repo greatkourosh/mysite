@@ -42,3 +42,13 @@ def snippet(value):
 @register.filter
 def snippetarg(value, arg=20):
     return value[:arg]+'...'
+
+# @register.inclusion_tag('popular_posts.html')
+# def popularposts():
+#     posts = Post.objects.filter(status=1).order_by('-published_at')
+#     return {'posts': posts}
+
+@register.inclusion_tag('widgets\popular-post-widget.html')
+def popularposts(count=3):
+    posts = Post.objects.filter(status=True).order_by('-published_at')[:count]
+    return {'posts': posts}

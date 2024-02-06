@@ -1,0 +1,7 @@
+{% load blog_tags %}
+<ul>
+  {% for post in posts %}
+    <li>{{ post.title }}</li>
+    <li>{{ post.content|snippetarg:50 }}</li>
+  {% endfor %}
+</ul>
