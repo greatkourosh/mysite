@@ -1,5 +1,7 @@
+import json
 from django.shortcuts import get_list_or_404, render, get_object_or_404
 from blog.models import Post, Tag, Category
+import pprint
 
 # Create your views here.
 
@@ -135,3 +137,20 @@ def test_simple(request):
                'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor', 'author': 'ASghar Farhadi',
                'posts': posts}
     return render(request, 'test_simple.html', context)
+
+
+def blog_search(request):
+    # posts = get_list_or_404(Post, status=True)
+    # pprint.pprint(request.__dict__)
+    posts = Post.objects.filter(status=True)
+    if request.method == 'GET':
+        if s := request.GET.get('s'):
+            posts = posts.filter(content__contains=s)
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
+    context = {
+        'posts': posts,
+        'tags': tags,
+        'categories': categories,
+    }
+    return render(request, 'blog/blog-home.html', context)
