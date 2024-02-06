@@ -95,3 +95,12 @@ def single_blog(request, pid):
         'categories': categories,
     }
     return render(request, 'blog/blog-single.html', context)
+
+def test_simple(request):
+    # posts = Post.objects.all()
+    posts = Post.objects.filter(status=1)
+    context = {'title': 'Gamba',
+               'subtitle': 'Ozaka',
+               'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor', 'author': 'ASghar Farhadi',
+               'posts': posts}
+    return render(request, 'test_simple.html', context)

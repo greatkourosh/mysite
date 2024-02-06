@@ -22,6 +22,7 @@ urlpatterns = [
     path("<int:pid>", views.single_blog, name="single_blog"),
     path("single", views.blog_single, name="single"),
     path("test_view", views.test_view, name="test_view"),
+    path("test_simple", views.test_simple, name="test_simple"),
     path("<str:name>", views.name_tester, name="name_tester"),
     path("<str:name>/<str:family>", views.name_family_tester, name="name_family_tester"),
     path("<str:name>/<str:family>/<int:age>", views.name_family_age_tester, name="name_family_age_tester"),

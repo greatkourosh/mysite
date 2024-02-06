@@ -1,0 +1,21 @@
+{% load blog_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_simple</title>
+</head>
+<body>
+    <h1>test_simple Header</h1>
+    <p>test: {% hello %} </p>
+    <p>test: {% plustwo 2 %} </p>
+    <p>test: {% plustwo %} </p>
+    <p>test: {% totalposts %} </p>
+    <p>test: {% posts %} </p>
+    {% for post in posts%}
+    <p>title: {{ post.title }}</p>
+    <p>snippet: {{ post.content|snippetarg:10 }} </p>
+    {% endfor %}
+</body>
+</html>
