@@ -15,8 +15,16 @@
     <p>test: {% posts %} </p>
 
     <form action="{% url 'website:test' %}" method="post">
+        {% csrf_token %}
         <label for="name">Name:</label>
         <input name="name" type="text">
+        {% comment %} <label for="subject">Subject:</label>
+        <input name="subject" type="text">
+        <label for="email">Email:</label>
+        <input name="email" type="email">
+        <label for="message">Message:</label>
+        <input name="message" type="text"> {% endcomment %}
+        {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
     {% comment %} {% for post in posts%}

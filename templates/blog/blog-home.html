@@ -57,7 +57,7 @@
               </div>
               <div class="col-lg-9 col-md-9">
                 <div class="feature-img">
-                  <img class="img-fluid" src={{ post.image.url }} alt="" />
+                  <img class="img-fluid" src="{{ post.image.url }}" alt="" />
                 </div>
                 <a class="posts-title" href="{% url 'blog:single_blog' post.id %}"><h3>{{ post.title }}</h3></a>
                 {% comment %} <p class="excert">{{ post.snippets }}</p> {% endcomment %}
@@ -68,28 +68,48 @@
             </div>
           {% endfor %}
           <nav class="blog-pagination justify-content-center d-flex">
-            <ul class="pagination">
+            {% comment %} <ul class="pagination">
               <li class="page-item">
                 <a href="#" class="page-link" aria-label="Previous"><span aria-hidden="true"><span class="lnr lnr-chevron-left"></span></span></a>
               </li>
-              <li class="page-item">
-                <a href="#" class="page-link">01</a>
+            </ul> {% endcomment %}
+            <ul class="pagination">
+              {% if posts.has_previous %}
+                <li class="page-item step-links">
+                  <a href="?page={{ posts.previous_page_number }}" class="page-link" aria-label="Previous">
+                    {% comment %}previous{% endcomment %}
+                    <span aria-hidden="true"><span class="lnr lnr-chevron-left"></span></span>
+                  </a>
+                </li>
+                <li class="page-item step-links">
+                  <a href="?page=1" class="page-link" aria-label="First">
+                    {% comment %}&laquo; first{% endcomment %}
+                    <span aria-hidden="true"><span class="lnr">First</span></span>
+                  </a>
+                </li>
+              {% endif %}
+              {% comment %} <li class="current page-item active">
+                <a href="#" class="page-link">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</a>
+              </li> {% endcomment %}
+              {% for page_number in posts.paginator.page_range %}
+              <li class="page-item {% if page_number == posts.number %}current active{% endif %}">
+                <a href="?page={{ page_number }}" class="page-link">Page {{ page_number }}</a>
               </li>
-              <li class="page-item active">
-                <a href="#" class="page-link">02</a>
-              </li>
-              <li class="page-item">
-                <a href="#" class="page-link">03</a>
-              </li>
-              <li class="page-item">
-                <a href="#" class="page-link">04</a>
-              </li>
-              <li class="page-item">
-                <a href="#" class="page-link">09</a>
-              </li>
-              <li class="page-item">
-                <a href="#" class="page-link" aria-label="Next"><span aria-hidden="true"><span class="lnr lnr-chevron-right"></span></span></a>
-              </li>
+              {% endfor %}
+              {% if posts.has_next %}
+                <li class="current page-item">
+                  <a href="?page={{ posts.paginator.num_pages }}" class="page-link" aria-label="Last">
+                    {% comment %}&laquo; first{% endcomment %}
+                    <span aria-hidden="true"><span class="lnr">Last</span></span>
+                  </a>
+                </li>
+                <li class="current page-item">
+                  <a href="?page={{ posts.next_page_number }}" class="page-link" aria-label="Next">
+                    {% comment %}next{% endcomment %}
+                    <span aria-hidden="true"><span class="lnr lnr-chevron-right"></span></span>
+                  </a>
+                </li>
+              {% endif %}
             </ul>
           </nav>
         </div>
