@@ -1,11 +1,12 @@
-import json
 from django.shortcuts import get_list_or_404, render, get_object_or_404
 from blog.models import Post, Tag, Category
-import pprint
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
 # def blog_view(request, category_name=None, tag_name=None, author_name=None):
+
+
 def blog_view(request, **kwargs):
     # posts = get_list_or_404(Post, status=True)
     posts = Post.objects.filter(status=True)
@@ -15,12 +16,20 @@ def blog_view(request, **kwargs):
         posts = posts.filter(tag__name=kwargs['tag_name'])
     if kwargs.get('author_name'):
         posts = posts.filter(author__username=kwargs['author_name'])
+    paginator = Paginator(posts, 3)
+    try:
+        page_number = request.GET.get('page')
+        posts = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        posts = paginator.get_page(1)
+    except EmptyPage:
+        posts = paginator.get_page(paginator.num_pages)
     categories = Category.objects.all()
     tags = Tag.objects.all()
     context = {
-        'posts': posts,
         'tags': tags,
         'categories': categories,
+        'posts': posts,
     }
     return render(request, 'blog/blog-home.html', context)
 
@@ -128,6 +137,7 @@ def single_blog(request, pid):
         'categories': categories,
     }
     return render(request, 'blog/blog-single.html', context)
+
 
 def test_simple(request):
     # posts = Post.objects.all()
