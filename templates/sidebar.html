@@ -8,14 +8,19 @@
         <button type="submit"><i class="fa fa-search"></i></button>
       </form>
     </div>
-    {% include 'widgets/author-widget.html' %}
+    {% comment %} {% include 'widgets/author-widget.html' %} {% endcomment %}
+    {% if post.author.id %}
+      {% author post.author.id %}
+    {% else %}
+      {% activest_author %}
+    {% endif %}
     {% comment %} {% include 'widgets/popular-post-widget.html' %} {% endcomment %}
     {% popularposts 3 %}
     <div class="single-sidebar-widget ads-widget">
       <a href="#"><img class="img-fluid" src="{% static 'img/blog/ads-banner.jpg' %}" alt="" /></a>
     </div>
     {% comment %} {% include 'widgets/post-category-widget.html' %} {% endcomment %}
-    {% categories_count %}
+    {% categories %}
     <div class="single-sidebar-widget newsletter-widget">
       <h4 class="newsletter-title">Newsletter</h4>
       <p>Here, I focus on a range of items and features that we use in life without giving them a second thought.</p>
@@ -34,6 +39,7 @@
       </div>
       <p class="text-bottom">You can unsubscribe at any time</p>
     </div>
-    {% include 'widgets/tag-cloud-widget.html' %}
+    {% comment %} {% include 'widgets/tag-cloud-widget.html' %} {% endcomment %}
+    {% tags %}
   </div>
 </div>

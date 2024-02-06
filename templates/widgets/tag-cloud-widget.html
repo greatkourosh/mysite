@@ -2,9 +2,9 @@
 <div class="single-sidebar-widget tag-cloud-widget">
   <h4 class="tagcloud-title">Tag Clouds</h4>
   <ul>
-    {% for tag in tags %}
+    {% for name,value in tags_count.items %}
       <li>
-        <a href="#">{{ tag }}</a>
+        <a href="{% url 'blog:tag_blog_view' name %}">{{ name }} ({{ value }})</a>
       </li>
     {% endfor %}
   </ul>

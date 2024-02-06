@@ -3,9 +3,16 @@ from blog.models import Post, Tag, Category
 
 # Create your views here.
 
-
-def blog_view(request):
-    posts = get_list_or_404(Post, status=True)
+# def blog_view(request, category_name=None, tag_name=None, author_name=None):
+def blog_view(request, **kwargs):
+    # posts = get_list_or_404(Post, status=True)
+    posts = Post.objects.filter(status=True)
+    if kwargs.get('category_name'):
+        posts = posts.filter(category__name=kwargs['category_name'])
+    if kwargs.get('tag_name'):
+        posts = posts.filter(tag__name=kwargs['tag_name'])
+    if kwargs.get('author_name'):
+        posts = posts.filter(author__username=kwargs['author_name'])
     categories = Category.objects.all()
     tags = Tag.objects.all()
     context = {
@@ -14,6 +21,32 @@ def blog_view(request):
         'categories': categories,
     }
     return render(request, 'blog/blog-home.html', context)
+
+# def category_blog_view(request, category_name):
+#     # posts = get_list_or_404(Post, category=category_name, status=True)
+#     posts = Post.objects.filter(status=True)
+#     posts = posts.filter(category__name=category_name)
+#     categories = Category.objects.all()
+#     tags = Tag.objects.all()
+#     context = {
+#         'posts': posts,
+#         'tags': tags,
+#         'categories': categories,
+#     }
+#     return render(request, 'blog/blog-home.html', context)
+
+# def tag_blog_view(request, tag_name):
+#     # posts = get_list_or_404(Post, category=category_name, status=True)
+#     posts = Post.objects.filter(status=True)
+#     posts = posts.filter(tag__name=tag_name)
+#     categories = Category.objects.all()
+#     tags = Tag.objects.all()
+#     context = {
+#         'posts': posts,
+#         'tags': tags,
+#         'categories': categories,
+#     }
+#     return render(request, 'blog/blog-home.html', context)
 
 
 def blog_single(request):
