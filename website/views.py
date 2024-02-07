@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from mysite.settings import BASE_DIR, STATIC_ROOT, STATIC_URL
 from website.models import Contact
-from website.forms import NameForm
+from website.forms import NameForm, ContactForm
 
 def index(request):
     # return HttpResponse('<h1>This is Home<h1>')
@@ -39,15 +39,17 @@ def test(request):
         # c.message = message
         # c.save()
         # print(name)  
-        form = NameForm(request.POST)
+        # form = NameForm(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
             subject = form.cleaned_data['subject']
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
+            form.save()
             return HttpResponse(f"Thanks for {name}, {subject}, {email} and {message}")
     else:
-        form = NameForm()
+        form = ContactForm()
     context = {
         'name': 'Gamba Ozaka',
         'form': form

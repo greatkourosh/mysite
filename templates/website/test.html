@@ -16,8 +16,8 @@
 
     <form action="{% url 'website:test' %}" method="post">
         {% csrf_token %}
-        <label for="name">Name:</label>
-        <input name="name" type="text">
+        {% comment %} <label for="name">Name:</label>
+        <input name="name" type="text"> {% endcomment %}
         {% comment %} <label for="subject">Subject:</label>
         <input name="subject" type="text">
         <label for="email">Email:</label>
