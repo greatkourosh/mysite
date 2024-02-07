@@ -13,10 +13,57 @@
             <div class="col-lg-6 form-group">
                 <textarea class="common-textarea form-control" name="message" placeholder="Enter Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Messege'" required=""></textarea>				
             </div>
+            {% comment %} <div class="col-lg-12">
+                <div class="alert-msg" style="text-align: left;"></div>
+                <button class="genric-btn primary" style="float: right;" type="submit">Send Message</button>											
+            </div> {% endcomment %}
+            <div class="col-lg-6">
+                {% if form.errors %}
+                <div class="alert alert-error">
+                    <h4>Please fix the following error</h4>
+                    <ul>
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                <li>
+                                    <a href="#id_{{field.name}}" class="error">{{ error|escape }}</a>
+                                </li>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}											
+            </div>
+            <div class="col-lg-6">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}											
+            </div>
             <div class="col-lg-12">
                 <div class="alert-msg" style="text-align: left;"></div>
                 <button class="genric-btn primary" style="float: right;" type="submit">Send Message</button>											
             </div>
         </div>
+        {% comment %} <div class="row">
+            {% if messages %}
+            <div class="col-lg-6 form-group">
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div> {% endcomment %}
     </form>	
 </div>

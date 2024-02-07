@@ -1,6 +1,7 @@
 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from django.contrib import messages
 from mysite.settings import BASE_DIR, STATIC_ROOT, STATIC_URL
 from website.models import Contact, Newsletter
 from website.forms import NameForm, ContactForm, NewsletterForm
@@ -40,7 +41,12 @@ def contact(request):
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
             form.save()
+            # messages.add_message(request, messages.SUCCESS, 'Your Message has been sent successfully!')
+            messages.success(request, 'Your Message has been sent successfully!')
             # return HttpResponse(f"Thanks for {name}, {subject}, {email} and {message}")
+        else:
+            # messages.add_message(request, messages.ERROR, 'Your Message has not been sent successfully!')
+            messages.warning(request, 'Your Message has not been sent successfully!')
     else:
         form = ContactForm()
     context = {
