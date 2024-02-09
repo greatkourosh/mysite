@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-*45z$-bd4n)weg6e6*i^2gn)2f66gqc_fxr_5&#^d=z9**cp@*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.1.0/24',]
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.0/24',]
 
 
 # Application definition
@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     "website.apps.WebsiteConfig",
     "blog.apps.BlogConfig",
     "robots",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -56,6 +58,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+if DEBUG is False:
+    del MIDDLEWARE[7]
 
 ROOT_URLCONF = "mysite.urls"
 
@@ -147,14 +151,17 @@ STORAGES = {
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-INTERNAL_IPS = ['127.0.0.1','192.168.1.0/24',]
+INTERNAL_IPS = [
+    '127.0.0.1',
+    # '192.168.1.0/24',
+]
 
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
 }
 
 # sites framework
