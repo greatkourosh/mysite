@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
+    "django_extensions",
     "website.apps.WebsiteConfig",
     "blog.apps.BlogConfig",
+    "robots",
 ]
 
 MIDDLEWARE = [
@@ -152,3 +156,11 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
 }
+
+# sites framework
+SITE_ID = 2
+
+# robots
+ROBOTS_USE_HOST = False
+ROBOTS_USE_SITEMAP = False
+# ROBOTS_USE_SCHEME_IN_HOST = True

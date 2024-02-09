@@ -18,7 +18,15 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemaps import BlogSitemap
 from website import views
+from website.sitemaps import WebsiteStaticViewSitemap
+
+sitemaps = {
+    'websitestatic': WebsiteStaticViewSitemap,
+    'blog': BlogSitemap,
+}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,6 +35,8 @@ urlpatterns = [
     path("", include("website.urls"), name="website"),
     # path("website/", include("website.urls"), name="website"),
     path("blog/", include("blog.urls"), name="blog"),
+    path("sitemap.xml", sitemap, {'sitemaps': sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+    path("robots.txt", include("robots.urls"), name="robots"),
 ]
 
 # static ('static, 'base / static')
