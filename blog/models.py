@@ -2,7 +2,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.db import models
 from django.contrib.auth.models import User
-
+from taggit.managers import TaggableManager
 
 # Create your models here.
 class Category(models.Model):
@@ -48,7 +48,9 @@ class Post(models.Model):
     image = models.ImageField(upload_to='blog/', default='blog/default.jpg')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
-    tag = models. ManyToManyField(Tag)
+    
+    # tag = models. ManyToManyField(Tag)
+    tags = TaggableManager()
     
     class Meta:
         ordering = ['-created_at','status']

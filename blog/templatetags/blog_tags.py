@@ -68,17 +68,31 @@ def categories():
         categories_count[category_name.name] = category_post
     return {'categories_count': categories_count}
 
+
 @register.inclusion_tag('widgets\\tag-cloud-widget.html')
-def tags():
+def tags(post=None):
     posts = Post.objects.filter(status=True)
-    tags = Tag.objects.all()
-    tags_count = {}
+    # tags = Tag.objects.all()
+    tags = Post.tags.all()
+    tags_count = []
+    tags_post = {}
     for tag_name in tags:
         # category_count = Post.objects.filter(category=category_name.name).count()
         # categories_count[category_name.name] = category_count
-        tag_post = posts.filter(tag=tag_name).count()
-        tags_count[tag_name.name] = tag_post
+        tag_count = posts.filter(tags=tag_name).count()
+        if_tag = False
+        if post:
+            if tag_name in post.tags.all():
+                print(f"tag_name = {tag_name} and in post.tags.all")
+                if_tag = True
+            else:
+                print(f"tag_name = {tag_name} and is not in post.tags.all")
+
+        # if tag_name in
+        # tags_count[tag_name.name] = {tag_name.name, tag_post, this_tag}
+        tags_count.append([tag_name.name, tag_count, if_tag])
     return {'tags_count': tags_count}
+
 
 @register.inclusion_tag('widgets\\author-widget.html')
 def activest_author():
@@ -94,6 +108,7 @@ def activest_author():
             authors_count[author_name] = author_post_count
             activest_author = author_name
     return {'author': activest_author}
+
 
 @register.inclusion_tag('widgets\\author-widget.html')
 def author(author_id=1):

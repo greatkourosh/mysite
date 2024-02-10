@@ -3,7 +3,7 @@
 <div class="col-lg-4 sidebar-widgets">
   <div class="widget-wrap">
     <div class="single-sidebar-widget search-widget">
-      <form class="search-form" action="{% url 'blog:blog_search'%}" method="get">
+      <form class="search-form" action="{% url 'blog:blog_search' %}" method="get">
         <input placeholder="Search Posts" name="s" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'" />
         <button type="submit"><i class="fa fa-search"></i></button>
       </form>
@@ -40,6 +40,8 @@
       <p class="text-bottom">You can unsubscribe at any time</p>
     </div>
     {% comment %} {% include 'widgets/tag-cloud-widget.html' %} {% endcomment %}
-    {% tags %}
+    {% comment %} {% if tags %} {% endcomment %}
+      {% tags post %}
+    {% comment %} {% endif %} {% endcomment %}
   </div>
 </div>

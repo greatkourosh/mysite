@@ -13,7 +13,13 @@ def blog_view(request, **kwargs):
     if kwargs.get('category_name'):
         posts = posts.filter(category__name=kwargs['category_name'])
     if kwargs.get('tag_name'):
-        posts = posts.filter(tag__name=kwargs['tag_name'])
+        posts = posts.filter(tags__name=kwargs['tag_name'])
+        print(posts.count())
+        # my_posts = posts.filter(tags__name=kwargs['tag_name'])
+        # posts = posts.filter(tags__name__in=kwargs['tag_name'])
+        # print(kwargs['tag_name'])
+        # print(posts.count())
+        # print(my_posts.count())
     if kwargs.get('author_name'):
         posts = posts.filter(author__username=kwargs['author_name'])
     paginator = Paginator(posts, 3)
@@ -25,9 +31,9 @@ def blog_view(request, **kwargs):
     except EmptyPage:
         posts = paginator.get_page(paginator.num_pages)
     categories = Category.objects.all()
-    tags = Tag.objects.all()
+    # tags = Tags.objects.all()
     context = {
-        'tags': tags,
+        # 'tags': tags,
         'categories': categories,
         'posts': posts,
     }
@@ -63,60 +69,69 @@ def blog_view(request, **kwargs):
 def blog_single(request):
     # post = Post.objects.get(id=3)
     post = get_object_or_404(Post, pk=3, status=True)
-    context = {'title': 'Gamba',
-               'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
-               'author': 'Asghar Farhadi',
-               'post': post,
-               }
+    context = {
+        'title': 'Gamba',
+        'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
+        'author': 'Asghar Farhadi',
+        'post': post,
+    }
     return render(request, 'blog/blog-single.html', context)
 
 
 def test_view(request):
     # posts = Post.objects.all()
     posts = Post.objects.filter(status=1)
-    context = {'title': 'Gamba',
-               'subtitle': 'Ozaka',
-               'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor', 'author': 'ASghar Farhadi',
-               'posts': posts}
+    context = {
+        'title': 'Gamba',
+        'subtitle': 'Ozaka',
+        'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor', 'author': 'ASghar Farhadi',
+        'posts': posts
+    }
     return render(request, 'test_view.html', context)
 
 
 def name_tester(request, name):
     # posts = Post.objects.all()
     posts = Post.objects.filter(status=True)
-    context = {'title': 'Gamba',
-               'subtitle': 'Ozaka',
-               'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
-               'author': 'Asghar Farhadi',
-               'posts': posts,
-               'name': name, }
+    context = {
+        'title': 'Gamba',
+        'subtitle': 'Ozaka',
+        'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
+        'author': 'Asghar Farhadi',
+        'posts': posts,
+        'name': name,
+    }
     return render(request, 'test_view.html', context)
 
 
 def name_family_tester(request, name, family):
     # posts = Post.objects.all()
     posts = Post.objects.filter(status=True)
-    context = {'title': 'Gamba',
-               'subtitle': 'Ozaka',
-               'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
-               'author': 'Asghar Farhadi',
-               'posts': posts,
-               'name': name,
-               'family': family}
+    context = {
+        'title': 'Gamba',
+        'subtitle': 'Ozaka',
+        'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
+        'author': 'Asghar Farhadi',
+        'posts': posts,
+        'name': name,
+        'family': family
+    }
     return render(request, 'test_view.html', context)
 
 
 def name_family_age_tester(request, name, family, age):
     # posts = Post.objects.all()
     posts = Post.objects.filter(status=True)
-    context = {'title': 'Gamba',
-               'subtitle': 'Ozaka',
-               'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
-               'author': 'Asghar Farhadi',
-               'posts': posts,
-               'name': name,
-               'family': family,
-               'age': age}
+    context = {
+        'title': 'Gamba',
+        'subtitle': 'Ozaka',
+        'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
+        'author': 'Asghar Farhadi',
+        'posts': posts,
+        'name': name,
+        'family': family,
+        'age': age
+    }
     return render(request, 'test_view.html', context)
 
 
@@ -133,7 +148,7 @@ def single_blog(request, pid):
         'author': 'Asghar Farhadi',
         'pid': pid,
         'post': post,
-        'tags': tags,
+        # 'tags': tags,
         'categories': categories,
     }
     return render(request, 'blog/blog-single.html', context)
