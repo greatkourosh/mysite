@@ -155,8 +155,9 @@
             </div>
           </div>
           {% include 'widgets/navigation-area-widget.html' %}
-          {% include 'widgets/comment-widget.html' %}
-          {% include 'widgets/comment-post-widget.html' %}
+          {% comment %} {% include 'widgets/comment-widget.html' %}
+          {% include 'widgets/comment-post-widget.html' %} {% endcomment %}
+          {% include 'widgets/disqus-comment-widget.html' %}
         </div>
         {% include 'sidebar.html' %}
       </div>
