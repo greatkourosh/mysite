@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.0/24',]
 # Application definition
 
 INSTALLED_APPS = [
+    "multi_captcha_admin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -214,4 +215,9 @@ SUMMERNOTE_CONFIG = {
             ['view', ['fullscreen', 'codeview', 'help']],
         ],
     },
+}
+
+MULTI_CAPTCHA_ADMIN = {
+    # 'engine': 'recaptcha2',
+    'engine': 'simple-captcha',
 }
