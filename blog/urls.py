@@ -18,11 +18,14 @@ import debug_toolbar
 from django.conf import settings
 from django.urls import path, include
 from blog import views
+from .feeds import LatestEntriesFeed
+
 app_name = 'blog'
 urlpatterns = [
     path("", views.blog_view, name="index"),
     path("category/<str:category_name>", views.blog_view, name="category_blog_view"),
     path("tag/<str:tag_name>", views.blog_view, name="tag_blog_view"),
+    path("rss/feed/", LatestEntriesFeed(), name="LatestEntriesFeed"),
     path("author/<str:author_name>", views.blog_view, name="author_blog_view"),
     path("search/", views.blog_search, name="blog_search"),
     path("<int:pid>", views.single_blog, name="single_blog"),
