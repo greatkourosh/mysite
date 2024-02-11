@@ -2,7 +2,10 @@ import datetime
 from django import template
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from blog.models import Category, Post, Tag
+from requests import request
+from blog.forms import CommentForm
+from blog.models import Category, Comment, Post, Tag
+from django.contrib import messages
 
 
 register = template.Library()
@@ -34,6 +37,11 @@ def posts_count():
     posts = Post.objects.filter(status=1)
     return posts
 
+@register.simple_tag(name='comments_count')
+def comments_count(pid):
+    post = Post.objects.filter(pk=pid)
+    comments = Comment.objects.filter(post=post.id)
+    return comments.count()
 
 @register.filter
 def snippet(value):
@@ -124,3 +132,21 @@ def author(author_id=1):
         if author_post_count > 0:
             authors_count[author_name] = author_post_count
     return {'author': author}
+
+@register.inclusion_tag('widgets\\comment-post-widget.html')
+def post_comment():
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, 'Your Message has been sent successfully!')
+        else:
+            messages.warning(
+                request, 'Your Message has not been sent successfully!')
+    else:
+        form = CommentForm()
+    context = {
+        'form': form
+    }
+    return context

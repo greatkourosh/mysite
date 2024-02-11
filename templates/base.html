@@ -81,9 +81,9 @@
                   <li>
                     <a href="{% url 'blog:index' %}">Blog Home</a>
                   </li>
-                  <li>
+                  {% comment %} <li>
                     <a href="{% url 'blog:single' %}">Blog Single</a>
-                  </li>
+                  </li> {% endcomment %}
                   <li>
                     <a href="{% url 'blog:test_view' %}">Test View</a>
                   </li>

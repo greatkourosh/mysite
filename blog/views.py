@@ -1,5 +1,7 @@
-from django.shortcuts import get_list_or_404, render, get_object_or_404
-from blog.models import Post, Tag, Category
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
+from .forms import CommentForm
+from .models import Post, Tag, Category, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
@@ -69,11 +71,14 @@ def blog_view(request, **kwargs):
 def blog_single(request):
     # post = Post.objects.get(id=3)
     post = get_object_or_404(Post, pk=3, status=True)
+    comments = Comment.objects.filter(
+        post=post.id, approved=True).order_by('-created_at')
     context = {
         'title': 'Gamba',
         'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
         'author': 'Asghar Farhadi',
         'post': post,
+        'comments': comments,
     }
     return render(request, 'blog/blog-single.html', context)
 
@@ -137,20 +142,39 @@ def name_family_age_tester(request, name, family, age):
 
 def single_blog(request, pid):
     # posts = Post.objects.all()
-    categories = Category.objects.all()
     tags = Tag.objects.all()
-    # post = Post.objects.get(id=pid)
+    if request.method == 'POST':
+        # post = Post.objects.get(id=pid)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print("form.is_valid()")
+            messages.success(
+                request, 'Your Message has been sent successfully!')
+        else:
+            print("form.is_not_valid()")
+            messages.warning(
+                request, 'Your Message has not been sent successfully!')
+        # print(f"comments.count() = {comments.count()}")
+    else:
+        form = CommentForm()
     post = get_object_or_404(Post, pk=pid, status=True)
+    categories = Category.objects.all()
+    comments = Comment.objects.filter(
+        post=post.id, approved=True).order_by('-created_at')
     context = {
         'title': 'Gamba',
         'subtitle': 'Ozaka',
         'content': 'lorem ipsum dolor sit amet, consectetur adip, lorem ipsum dolor, lorem ipsum dolor',
         'author': 'Asghar Farhadi',
-        'pid': pid,
+        # 'pid': pid,
         'post': post,
         # 'tags': tags,
         'categories': categories,
+        'comments': comments,
+        'form': form,
     }
+
     return render(request, 'blog/blog-single.html', context)
 
 
@@ -179,3 +203,21 @@ def blog_search(request):
         'categories': categories,
     }
     return render(request, 'blog/blog-home.html', context)
+
+
+def post_comment(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, 'Your Message has been sent successfully!')
+        else:
+            messages.warning(
+                request, 'Your Message has not been sent successfully!')
+    else:
+        form = CommentForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'widgets/comment-post-widget.html', context)

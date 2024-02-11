@@ -6,16 +6,20 @@ from mysite.settings import BASE_DIR, STATIC_ROOT, STATIC_URL
 from website.models import Contact, Newsletter
 from website.forms import NameForm, ContactForm, NewsletterForm
 
+
 def index(request):
     # return HttpResponse('<h1>This is Home<h1>')
     return render(request, 'website/index.html')
 
+
 def home(request):
     return index()
+
 
 def about(request):
     # return HttpResponse('<h1>This is about<h1>')
     return render(request, 'website/about.html')
+
 
 def contact(request):
     # return HttpResponse('<h1>This is contact<h1>')
@@ -32,7 +36,7 @@ def contact(request):
         # c.email = email
         # c.message = message
         # c.save()
-        # print(name)  
+        # print(name)
         # form = NameForm(request.POST)
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -42,17 +46,20 @@ def contact(request):
             message = form.cleaned_data['message']
             form.save()
             # messages.add_message(request, messages.SUCCESS, 'Your Message has been sent successfully!')
-            messages.success(request, 'Your Message has been sent successfully!')
+            messages.success(
+                request, 'Your Message has been sent successfully!')
             # return HttpResponse(f"Thanks for {name}, {subject}, {email} and {message}")
         else:
             # messages.add_message(request, messages.ERROR, 'Your Message has not been sent successfully!')
-            messages.warning(request, 'Your Message has not been sent successfully!')
+            messages.warning(
+                request, 'Your Message has not been sent successfully!')
     else:
         form = ContactForm()
     context = {
         'form': form
-        }
+    }
     return render(request, 'website/contact.html', context)
+
 
 def newsletter(request):
     # return HttpResponse('<h1>This is contact<h1>')
@@ -69,7 +76,7 @@ def newsletter(request):
         # c.email = email
         # c.message = message
         # c.save()
-        # print(name)  
+        # print(name)
         # form = NameForm(request.POST)
         form = NewsletterForm(request.POST)
         if form.is_valid():
@@ -84,9 +91,11 @@ def newsletter(request):
         return HttpResponseRedirect('/')
     # return render(request, 'website/contact.html', context)
 
+
 def test_view(request):
     context = {'name': 'Gamba Ozaka'}
     return render(request, 'website/test_view.html', context)
+
 
 def test(request):
     if request.method == 'POST':
@@ -102,7 +111,7 @@ def test(request):
         # c.email = email
         # c.message = message
         # c.save()
-        # print(name)  
+        # print(name)
         # form = NameForm(request.POST)
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -117,5 +126,5 @@ def test(request):
     context = {
         'name': 'Gamba Ozaka',
         'form': form
-        }
+    }
     return render(request, 'website/test.html', context)

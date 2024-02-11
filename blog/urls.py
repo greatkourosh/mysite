@@ -26,6 +26,7 @@ urlpatterns = [
     path("author/<str:author_name>", views.blog_view, name="author_blog_view"),
     path("search/", views.blog_search, name="blog_search"),
     path("<int:pid>", views.single_blog, name="single_blog"),
+    path("comment", views.post_comment, name="post_comment"),
     path("single", views.blog_single, name="single"),
     path("test_view", views.test_view, name="test_view"),
     path("test_simple", views.test_simple, name="test_simple"),

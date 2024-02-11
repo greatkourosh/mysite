@@ -1,6 +1,6 @@
 from django.contrib import admin
 from website.models import Contact
-from .models import Post, Tag, Category
+from .models import Comment, Post, Tag, Category
 from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
@@ -37,3 +37,11 @@ class CategoryAdmin(admin.ModelAdmin):
 #     summernote_fields = '__all__'
 
 # admin.site.register(Post, PostAdmin)
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created_at'
+    empty_value_display = ')`:'
+    search_fields = ['email', 'approved',]
+    list_filter = ('email', 'post',)
+    list_display = ('email', 'subject', 'created_at', 'approved',)
