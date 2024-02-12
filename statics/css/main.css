@@ -2737,8 +2737,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 /*-------- end Popular-destination Area ------------*/
 /*-------- start price Area ------------*/
 .price-area {
-  /* background: url(../img/price-bg.png); */
-  background: url(../../img/price-bg.png);
+  background: url(../img/price-bg.png);
+  /* background: url(../../img/price-bg.png); */
   background-size: cover;
 }
 
