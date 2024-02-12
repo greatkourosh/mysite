@@ -38,12 +38,27 @@
           <div class="row align-items-center">
             <div class="col-lg-6 col-sm-6 col-6 header-top-left">
               <ul>
+                {% if request.user.is_authenticated %}
                 <li>
+                  <a href="#">{{request.user.username}}</a>
+                </li>
+                <li>
+                  <a href="{% url 'accounts:logout_view' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                  <a href="{% url 'accounts:login_view' %}">Login</a>
+                </li>
+                <li>
+                  <a href="{% url 'accounts:signup_view' %}">SignUP</a>
+                </li>
+                {% endif %}
+                {% comment %} <li>
                   <a href="#">Visit Us</a>
                 </li>
                 <li>
                   <a href="#">Buy Tickets</a>
-                </li>
+                </li> {% endcomment %}
               </ul>
             </div>
             <div class="col-lg-6 col-sm-6 col-6 header-top-right">
@@ -92,7 +107,7 @@
                 <a href="{% url 'blog:index' %}">Blog</a>
                 {% endif %}
               </li>
-              <li class="menu-has-children">
+              {% comment %} <li class="menu-has-children">
                 <a href="">Pages</a>
                 <ul>
                   <li>
@@ -110,6 +125,26 @@
                     </ul>
                   </li>
                 </ul>
+              </li> {% endcomment %}
+              <li class="menu-has-children">
+                {% if request.user.is_authenticated %}
+                <a href="">My Account</a>
+                <ul>
+                  <li>
+                    <a href="{% url 'accounts:logout_view' %}">Logout</a>
+                  </li>
+                </ul>
+                {% else %}
+                <a href="">Login\Sign UP</a>
+                <ul>
+                  <li>
+                    <a href="{% url 'accounts:login_view' %}">Login</a>
+                  </li>
+                  <li class="menu-has-children">
+                    <a href="{% url 'accounts:signup_view' %}">Sign UP</a>
+                  </li>
+                </ul>
+                {% endif %}
               </li>
               <li>
                 <a href="{% url 'website:contact' %}">Contact</a>
