@@ -1,5 +1,6 @@
 from . import views
 from django.urls import path
+from blog.models import Post
 
 
 app_name = 'accounts'

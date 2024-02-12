@@ -1,5 +1,7 @@
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from .forms import CommentForm
 from .models import Post, Tag, Category, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -39,6 +41,11 @@ def blog_view(request, **kwargs):
         'categories': categories,
         'posts': posts,
     }
+    if request.user.is_authenticated:
+        # context += {
+        #     'user': request.user
+        # }
+        context['user'] = request.user
     return render(request, 'blog/blog-home.html', context)
 
 # def category_blog_view(request, category_name):
@@ -80,6 +87,11 @@ def blog_single(request):
         'post': post,
         'comments': comments,
     }
+    if request.user.is_authenticated:
+        # context += {
+        #     'user': request.user
+        # }
+        context['user'] = request.user
     return render(request, 'blog/blog-single.html', context)
 
 
@@ -144,6 +156,7 @@ def single_blog(request, pid):
     # posts = Post.objects.all()
     tags = Tag.objects.all()
     if request.method == 'POST':
+        nxt = request.Post.get("next", None)
         # post = Post.objects.get(id=pid)
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -159,6 +172,8 @@ def single_blog(request, pid):
     else:
         form = CommentForm()
     post = get_object_or_404(Post, pk=pid, status=True)
+    if post.login_require:
+        return redirect("accounts:login_view")
     categories = Category.objects.all()
     comments = Comment.objects.filter(
         post=post.id, approved=True).order_by('-created_at')
@@ -174,7 +189,14 @@ def single_blog(request, pid):
         'comments': comments,
         'form': form,
     }
-
+    if request.user.is_authenticated:
+        # context += {
+        #     'user': request.user
+        # }
+        # print("request.user.username", request.user.username)
+        context['user'] = request.user
+    else:
+        context['user'] = None
     return render(request, 'blog/blog-single.html', context)
 
 

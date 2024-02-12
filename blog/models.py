@@ -50,6 +50,9 @@ class Post(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
     )
+    login_require = models.BooleanField(
+        default=False,
+    )
     image = models.ImageField(upload_to='blog/', default='blog/default.jpg')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)

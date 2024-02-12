@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -28,10 +28,8 @@ def login_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
+        # next_page = request.POST.get('post_id')
         if request.method == 'POST':
-            # username = request.POST.get('username')
-            # password = request.POST.get('password')
-            # user = authenticate(request, username=username, password=password)
             form = AuthenticationForm(request=request, data=request.POST)
             if form.is_valid():
                 username = form.cleaned_data.get("username")
@@ -43,6 +41,7 @@ def login_view(request):
                 else:
                     messages.error(
                         request, 'User Not Found!')
+    # return HttpResponseRedirect('/')
     # if request.user.is_authenticated:
     #     if_login = True
     #     user = request.user.username
