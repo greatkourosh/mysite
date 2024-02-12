@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
     <meta name="generator" content="Jekyll v3.8.5" />
-    <title>Signin Template · Bootstrap</title>
+    <title>SignUp Template · Bootstrap</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/" />
 
@@ -36,20 +36,20 @@
     <link rel="stylesheet" href="{% static 'css/signin.css' %}" />
   </head>
   <body class="text-center">
-    <form class="form-signin" method="post" action="{% url 'accounts:login_view' %}">
+    <form class="form-signin" method="post" action="{% url 'accounts:signup_view' %}">
       {% csrf_token %}
       {% comment %} <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" /> {% endcomment %}
       <img class="mb-4" src="{% static 'img/bootstrap-solid.svg' %}" alt="" width="72" height="72" />
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
-      <label for="inputEmail" class="sr-only">Emailer</label>
+      <label for="inputEmail" class="sr-only">Email</label>
       <input type="email" name="email" id="inputemail" class="form-control" placeholder="Email Address" required autofocus />
       <label for="inputUsername" class="sr-only">Username</label>
       <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus />
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required />
-      <div class="checkbox mb-3">
-        <label><input type="checkbox" value="remember-me" /> Remember me</label>
-      </div>
+      <label for="id_password1" class="sr-only">Password</label>
+      <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Password" required />
+      <label for="id_password2" class="sr-only">Confirm Password</label>
+      <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Confirm Password" required />
+      {% comment %} {{form.as_p}} {% endcomment %}
       {% if messages %}
         <ul class="messages">
           {% for message in messages %}
@@ -58,7 +58,9 @@
           {% endfor %}
         </ul>
       {% endif %}
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+      <a class="btn btn-lg btn-primary btn-block" href="{% url 'accounts:login_view' %}">Sign In</a>
       <p class="mt-5 mb-3 text-muted">
         &copy; {% now 'Y' %}
       </p>
