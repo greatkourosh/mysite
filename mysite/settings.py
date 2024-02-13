@@ -17,18 +17,6 @@ from django.contrib.messages import constants as messages
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-*45z$-bd4n)weg6e6*i^2gn)2f66gqc_fxr_5&#^d=z9**cp@*"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.0/24',]
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -63,8 +51,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-if DEBUG is False:
-    del MIDDLEWARE[7]
 
 ROOT_URLCONF = "mysite.urls"
 
@@ -87,15 +73,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "mysite.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 
 # Password validation
@@ -133,15 +110,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "static"
-
 MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "statics",
-    # "/var/www/static/",
-]
+
 
 STORAGES = {
     "default": {
@@ -169,15 +140,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-# sites framework
-SITE_ID = 2
 
 # robots
 ROBOTS_USE_HOST = False
 ROBOTS_USE_SITEMAP = False
 # ROBOTS_USE_SCHEME_IN_HOST = True
 
-X_FRAME_OPTIONS = "SAMEORIGIN"
+
 
 # summernote configs
 SUMMERNOTE_THEME = "bs4"
@@ -222,3 +191,5 @@ MULTI_CAPTCHA_ADMIN = {
     # 'engine': 'recaptcha2',
     'engine': 'simple-captcha',
 }
+
+CSRF_COOKIE_SECURE = True

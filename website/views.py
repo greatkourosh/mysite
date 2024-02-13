@@ -2,8 +2,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.contrib import messages
-from mysite.settings import BASE_DIR, STATIC_ROOT, STATIC_URL
-from website.models import Contact, Newsletter
 from website.forms import NameForm, ContactForm, NewsletterForm
 
 
