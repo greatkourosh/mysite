@@ -37,6 +37,9 @@ def login_view(request):
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request, user)
+                    print(f"request.GET.get('next') = {request.GET.get('next')}")
+                    if request.GET.get('next'):
+                        return redirect(request.GET.get('next'))
                     return HttpResponseRedirect('/accounts')
                 else:
                     messages.error(

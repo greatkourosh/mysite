@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.sitemaps",
     "website.apps.WebsiteConfig",
-    "accounts.apps.AccountsConfig",
+    # "accounts.apps.AccountsConfig",
     "django_extensions",
     "django_summernote",
     "blog.apps.BlogConfig",
@@ -222,3 +222,5 @@ MULTI_CAPTCHA_ADMIN = {
     # 'engine': 'recaptcha2',
     'engine': 'simple-captcha',
 }
+
+LOGIN_REDIRECT_URL = '/'
